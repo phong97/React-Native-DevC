@@ -26,7 +26,7 @@ export default class App extends Component {
     try {
       let result = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&from=2019-09-27&sortBy=publishedAt&apiKey=3bb3b5f1609e46f09ed0b00f25f6e2d1&page=${pageNumber}`);
       let data = await result.json();
-      const hasMoreArticles = jsonData.articles.length > 0;
+      const hasMoreArticles = data.articles.length > 0;
       if (hasMoreArticles) {
         const newArticleList = filterForUniqueArticles(
           articles.concat(data.articles)
@@ -52,7 +52,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { loading, articles, hasErrored } = this.state;
+    const { loading, articles, hasErrored, lastPageReached } = this.state;
     if (hasErrored) {
       return (
         <View style={styles.container}>
